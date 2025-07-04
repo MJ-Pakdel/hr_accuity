@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "text": "What is 2 + 2?",
+    "topic": "Basic Arithmetic",
+    "difficulty": 1,
+    "estimated_time_to_solve_minutes": 1
+  },
+  {
+    "id": "2",
+    "text": "Solve for x: 3x = 12",
+    "topic": "Basic Arithmetic",
+    "difficulty": 1,
+    "estimated_time_to_solve_minutes": 1
+  },
+  {
+    "id": "3",
+    "text": "What fraction of 12 is 3?",
+    "topic": "Fractions",
+    "difficulty": 2,
+    "estimated_time_to_solve_minutes": 2
+  },
+  {
+    "id": "4",
+    "text": "Simplify: 4/8",
+    "topic": "Fractions",
+    "difficulty": 2,
+    "estimated_time_to_solve_minutes": 1
+  },
+  {
+    "id": "5",
+    "text": "If x + 5 = 9, what is x?",
+    "topic": "Introduction to Algebra",
+    "difficulty": 3,
+    "estimated_time_to_solve_minutes": 2
+  },
+  {
+    "id": "6",
+    "text": "Find the value of y in 2y - 4 = 10",
+    "topic": "Introduction to Algebra",
+    "difficulty": 3,
+    "estimated_time_to_solve_minutes": 3
+  },
+  {
+    "id": "7",
+    "text": "Calculate the area of a triangle with base 5 and height 4.",
+    "topic": "Geometry Fundamentals",
+    "difficulty": 3,
+    "estimated_time_to_solve_minutes": 3
+  },
+  {
+    "id": "8",
+    "text": "What is the Pythagorean theorem?",
+    "topic": "Geometry Fundamentals",
+    "difficulty": 4,
+    "estimated_time_to_solve_minutes": 4
+  }
+] 
