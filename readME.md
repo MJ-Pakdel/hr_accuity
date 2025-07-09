@@ -51,8 +51,29 @@ uvicorn app.main:app --reload
 Open http://localhost:8000/docs for an interactive Swagger UI.
 
 ---
-## 6. Next Steps (Beyond the Skeleton)
-* Unit tests for planner/executor logic.
+## 6. Running Tests
+Unit tests for the Planner and Executor live in the `tests/` package. A minimal dev setup looks like this:
+
+```bash
+# (optional) create & activate virtual-env
+python -m venv venv && source venv/bin/activate
+
+# install application deps
+pip install -r requirements.txt
+
+# install test-time dependency
+pip install pytest
+
+# run the full test-suite from the project root
+pytest -q
+
+# or, if you are already inside the hr_accuity folder
+pytest tests -q
+```
+
+---
+## 7. Next Steps (Beyond the Skeleton)
+* ✅ Unit tests for planner/executor logic (see `tests/`).
 * JWT-based auth & rate-limiting.
 * Observability: OpenTelemetry traces for each orchestration stage.
 * CI pipeline with pre-commit linting and type-checking.
