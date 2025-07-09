@@ -43,12 +43,34 @@ The reference implementation lazily loads `ProblemSet.json` into memory and pers
 
 ---
 ## 5. Running Locally
+
+### 5.1 Manual Setup
 ```bash
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 Open http://localhost:8000/docs for an interactive Swagger UI.
+
+### 5.2 Using Convenience Scripts
+Two shell scripts are provided for quick development:
+
+1. `run_api.sh` - Starts the API server in the background
+   ```bash
+   # Start server (defaults to http://127.0.0.1:8000)
+   ./run_api.sh
+
+   # Or customize host/port
+   HOST=0.0.0.0 PORT=9000 ./run_api.sh
+   ```
+   The script will print URLs for Swagger UI, ReDoc, and where to find logs.
+
+2. `test_request.sh` - Sends a sample assessment request
+   ```bash
+   # Requires jq for JSON formatting (brew install jq)
+   ./test_request.sh
+   ```
+   This sends a POST to `/api/assessments/generate` with a pre-configured payload for quick testing.
 
 ---
 ## 6. Running Tests
