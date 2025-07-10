@@ -44,14 +44,13 @@ def sample_problems():
 def monkeypatch_db(monkeypatch, sample_problems):
     """Patch the ProblemDatabase.list_problems to return our sample problems filtered by topic."""
 
-    def fake_list_problems(topic=None, difficulty=None):
+    async def fake_list_problems(topic=None, difficulty=None):
         items = sample_problems
         if topic is not None:
             items = [p for p in items if p.topic == topic]
         if difficulty is not None:
             items = [p for p in items if p.difficulty == difficulty]
         return items
-
     # Apply patch
     from app.core import data
 
@@ -68,11 +67,12 @@ def _make_plan(num_problems=4, difficulty_range=(1, 3)):
     )
 
 
-def test_execute_plan_respects_constraints(monkeypatch_db):
+@pytest.mark.asyncio
+async def test_execute_plan_respects_constraints(monkeypatch_db):
     plan = _make_plan(num_problems=3, difficulty_range=(1, 3))
     max_time = 5  # minutes
 
-    assessment = execute_plan(plan, max_time)
+    assessment = await execute_plan(plan, max_time)
 
     # Verify number of problems <= requested
     assert len(assessment.selected_problems) <= plan.num_problems
@@ -90,9 +90,10 @@ def test_execute_plan_respects_constraints(monkeypatch_db):
     )
 
 
-def test_execute_plan_returns_unique_problems(monkeypatch_db):
+@pytest.mark.asyncio
+async def test_execute_plan_returns_unique_problems(monkeypatch_db):
     plan = _make_plan(num_problems=10, difficulty_range=(1, 4))
-    assessment = execute_plan(plan, max_total_time_minutes=100)
+    assessment = await execute_plan(plan, max_total_time_minutes=100)
 
     ids = [p.id for p in assessment.selected_problems]
     assert len(ids) == len(set(ids))  # no duplicates 

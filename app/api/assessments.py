@@ -16,8 +16,8 @@ async def generate_assessment(
     student_profile: StudentProfile, assessment_request: AssessmentRequest
 ):
     """High-level orchestration endpoint."""
-    plan = generate_plan(student_profile, assessment_request)
-    assessment = execute_plan(plan, assessment_request.max_total_time_minutes)
+    plan = await generate_plan(student_profile, assessment_request)
+    assessment = await execute_plan(plan, assessment_request.max_total_time_minutes)
 
     return {
         "assessment_id": assessment.assessment_id,

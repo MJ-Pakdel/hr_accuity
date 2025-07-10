@@ -14,12 +14,12 @@ async def list_problems(
     difficulty: Optional[int] = Query(None, ge=1, le=5),
 ):
     """Return all problems, optionally filtered by topic and/or difficulty."""
-    return db.list_problems(topic=topic, difficulty=difficulty)
+    return await db.list_problems(topic=topic, difficulty=difficulty)
 
 
 @router.get("/{problem_id}", response_model=MathProblem)
 async def get_problem(problem_id: str = Path(...)):
-    problem = db.get_problem(problem_id)
+    problem = await db.get_problem(problem_id)
     if not problem:
         raise HTTPException(status_code=404, detail="Problem not found")
     return problem
@@ -27,16 +27,16 @@ async def get_problem(problem_id: str = Path(...)):
 
 @router.post("", response_model=MathProblem, status_code=201)
 async def create_problem(problem: MathProblem):
-    if db.get_problem(problem.id):
+    if await db.get_problem(problem.id):
         raise HTTPException(status_code=400, detail="Problem ID already exists")
-    db.add_problem(problem)
+    await db.add_problem(problem)
     return problem
 
 
 @router.put("/{problem_id}", response_model=MathProblem)
 async def update_problem(problem_id: str, problem: MathProblem):
     try:
-        db.update_problem(problem_id, problem)
+        await db.update_problem(problem_id, problem)
     except KeyError:
         raise HTTPException(status_code=404, detail="Problem not found")
     return problem
@@ -44,6 +44,6 @@ async def update_problem(problem_id: str, problem: MathProblem):
 
 @router.delete("/{problem_id}", status_code=204)
 async def delete_problem(problem_id: str):
-    if not db.get_problem(problem_id):
+    if not await db.get_problem(problem_id):
         raise HTTPException(status_code=404, detail="Problem not found")
-    db.delete_problem(problem_id) 
+    await db.delete_problem(problem_id) 

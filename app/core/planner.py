@@ -12,7 +12,7 @@ MIN_PROBLEMS = 5
 MAX_PROBLEMS = 15
 
 
-def generate_plan(profile: StudentProfile, request: AssessmentRequest) -> AssessmentPlan:
+async def generate_plan(profile: StudentProfile, request: AssessmentRequest) -> AssessmentPlan:
     """Very simple heuristic-based planner.
 
     In production this can be replaced with an LLM that returns the same JSON schema.

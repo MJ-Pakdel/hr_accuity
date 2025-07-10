@@ -49,10 +49,11 @@ def sample_profile():
         ),
     ],
 )
-def test_generate_plan(strategy, expected_topics, expected_range, expected_count, sample_profile):
+@pytest.mark.asyncio
+async def test_generate_plan(strategy, expected_topics, expected_range, expected_count, sample_profile):
     request = AssessmentRequest(max_total_time_minutes=30, pedagogical_strategy=strategy)
 
-    plan = planner.generate_plan(sample_profile, request)
+    plan = await planner.generate_plan(sample_profile, request)
 
     # Topics (order may vary for CHALLENGE so compare sets)
     assert set(plan.target_topics) == set(expected_topics)

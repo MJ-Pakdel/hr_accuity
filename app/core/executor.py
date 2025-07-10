@@ -1,16 +1,21 @@
 import uuid
+import asyncio
 from typing import List
 
 from app.core.data import db
 from app.core.schemas import AssessmentPlan, GeneratedAssessment, MathProblem
 
 
-def execute_plan(plan: AssessmentPlan, max_total_time_minutes: int) -> GeneratedAssessment:
+async def execute_plan(plan: AssessmentPlan, max_total_time_minutes: int) -> GeneratedAssessment:
     """Retrieve problems that satisfy the plan while respecting the time constraint."""
     # Gather candidate problems by topic
     candidates: List[MathProblem] = []
-    for topic in plan.target_topics:
-        candidates.extend(db.list_problems(topic=topic))
+
+    # Fetch each topic's problems concurrently
+    fetch_tasks = [db.list_problems(topic=topic) for topic in plan.target_topics]
+    topic_problem_lists = await asyncio.gather(*fetch_tasks)
+    for plist in topic_problem_lists:
+        candidates.extend(plist)
 
     # Filter by difficulty
     low, high = plan.difficulty_range
